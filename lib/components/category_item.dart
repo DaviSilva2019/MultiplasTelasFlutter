@@ -1,34 +1,41 @@
-import'package:flutter/material.dart';
-
+import 'package:flutter/material.dart';
 import '../models/category.dart';
-
+import '../screens/categories_meals_screen.dart';
 class CategoryItem extends StatelessWidget {
- 
- // definindo variável do tipo categoria
+  // definindo variável do tipo categoria
   final Category category;
 
   // construtor
   const CategoryItem(this.category);
 
+  void __selectCategory(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_){
+          return CategoriesMealsScreen();
+        }
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: () => __selectCategory(context),
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
         padding: EdgeInsets.all(15),
         child: Text(
           category.title,
           style: Theme.of(context).textTheme.title,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(colors: [
               category.color.withOpacity(0.5),
               category.color,
-            ],
-            begin : Alignment.topLeft,
-            end: Alignment.bottomRight
-          )
-        ),
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+      ),
     );
   }
 }
