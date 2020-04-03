@@ -28,19 +28,19 @@ class Meal {
   final Cost cost;
 
   const Meal({
-    @required id,
-    @required categories,
-    @required title,
-    @required imageUrl,
-    @required ingredients,
-    @required steps,
-    @required duration,
-    @required isGlutenFree,
-    @required isLactoseFree,
-    @required isVegan,
-    @required isVegetarian,
-    @required complexity,
-    @required cost
+    @required this.id,
+    @required this.categories,
+    @required this.title,
+    @required this.imageUrl,
+    @required this.ingredients,
+    @required this.steps,
+    @required this.duration,
+    @required this.isGlutenFree,
+    @required this.isLactoseFree,
+    @required this.isVegan,
+    @required this.isVegetarian,
+    @required this.complexity,
+    @required this.cost
   });
 
 }
