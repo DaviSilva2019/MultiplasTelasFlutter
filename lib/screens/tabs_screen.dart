@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'categories_screen.dart';
 import 'favorite_screen.dart';
+import '../components/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text(_screens[_selectedScreenIndex]['title']),
         centerTitle: true,
