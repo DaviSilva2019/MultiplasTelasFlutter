@@ -4,6 +4,7 @@ import './screens/tabs_screen.dart';
 import './screens/settings_screen.dart';
 import './utils/app_routes.dart';
 import './screens/meal_detail_screen.dart';
+import './models/settings.dart';
 
 import './models/meal.dart';
 import './data/dummy_data.dart';
@@ -17,12 +18,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
+  
+  Settings settings = Settings();
   List <Meal> _avaliableMeals = DUMMY_MEALS;
+  void _filterMeals(Settings settings){
+    setState(() {
+      _avaliableMeals = DUMMY_MEALS.where((meal){
+        final filterGlutten = settings.isGlutenFree && !meal.isGlutenFree;
+        final filterLactose = settings.isLactoseFree && !meal.isLactoseFree;
+        final filterVegan = settings.isVegan && !meal.isVegan;
+        final filterVegetarian = settings.isVegetarian && !meal.isVegetarian;
+        return !filterGlutten && !filterLactose && !filterVegan && !filterVegetarian; 
+      }).toList();
+    });  
+  }  
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
         primarySwatch: Colors.pink,
@@ -38,9 +53,9 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         App_Routes.HOME: (ctx) => TabsScreen(),
-        App_Routes.CATEGORIES_MEALS: (ctx) => CategoriesMealsScreen(),
+        App_Routes.CATEGORIES_MEALS: (ctx) => CategoriesMealsScreen(_avaliableMeals),
         App_Routes.MEAL_DETAIL: (ctx) => MealDetailScreen(),
-        App_Routes.SETTINGS: (ctx) => SettingsScreen()
+        App_Routes.SETTINGS: (ctx) => SettingsScreen(settings, _filterMeals)
       },
     );
   }
